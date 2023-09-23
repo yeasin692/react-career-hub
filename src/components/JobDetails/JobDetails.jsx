@@ -4,6 +4,11 @@ import { HiOutlineCalendarDays  } from "react-icons/hi2";
 import { HiOutlinePhone  } from "react-icons/hi2";
 import { MdOutlineEmail  } from "react-icons/md";
 import { MdLocationOn  } from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { saveJobApplication } from "../../Utility/localstorage";
+
+
 
 
 const JobDetails = () => {
@@ -11,8 +16,12 @@ const JobDetails = () => {
     const {id} = useParams();
     const idInt = parseInt(id);
     const job = jobs.find(job => job.id === idInt);
-    console.log(job);
+
     
+    const handleApplyJob = () =>{
+        saveJobApplication(idInt);
+        toast('You have applied successfully');
+    }
 
     return (
         <div>
@@ -59,11 +68,11 @@ const JobDetails = () => {
                     <h2 className="flex"> <MdLocationOn className="text-2xl mr-2 text-[#7E90FE]"></MdLocationOn>Address : {job.contact_information.address}</h2>
                     <br />
                     </div>
-                    <button className="btn btn-primary w-full">Apply Now</button>
+                    <button onClick={handleApplyJob} className="btn btn-primary w-full">Apply Now</button>
                 </div>
-                
 
             </div>
+            <ToastContainer />
         </div>
     );
 };
